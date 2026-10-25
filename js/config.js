@@ -43,7 +43,7 @@ window.WEDDING = {
   },
 
   // Photo on the first page, inside the arch above the names (round frame). Remove the line to hide it.
-  heroPhoto: { src: "images/hero.jpg", pos: "50% 20%" },
+  heroPhoto: { src: "images/hero.jpeg", pos: "50% 20%" },
 
   // Polaroid collage: up to 7 photos, placed in this order (file names must match exactly).
   //   1 = big centre, slightly tall   2 = top-right, landscape      3 = bottom-left, tall
