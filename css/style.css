@@ -1,10 +1,10 @@
 :root{
   --teal:#0E3B43; --teal-2:#164E58; --gold:#F2A93B; --rose:#C2456B;
   --blush:#F6D5CF; --mint:#EAF6F3; --sand:#FFF6E4; --petal:#FDE8E4; --peach:#FFF0E6; --paper:#FFFaf4; --ink:#10282C;
-  --serif:"Cormorant Garamond",Georgia,serif; --sans:"Jost",system-ui,sans-serif;
+  --serif:"Cormorant Garamond","Noto Serif Devanagari",Georgia,serif; --sans:"Jost","Noto Sans Devanagari",system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:4rem}
 body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--paper);line-height:1.7;font-size:17px}
 body.locked{overflow:hidden}
 h1,h2{font-family:var(--serif);font-weight:400}
@@ -21,7 +21,12 @@ h1,h2{font-family:var(--serif);font-weight:400}
   width:min(70vw,280px);aspect-ratio:3/4;border-radius:999px 999px 14px 14px;cursor:pointer;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;transition:opacity .5s}
 .monogram{font-family:var(--serif);font-size:clamp(2.4rem,9vw,3.4rem);font-style:italic}
-.hint{font-size:.9rem;letter-spacing:.08em;color:var(--blush);animation:pulse 2.2s infinite}
+.hint{font-size: large;
+    letter-spacing: .08em;
+    color: var(--blush);
+    animation: pulse 2.2s infinite;
+    font-style: italic;
+    font-weight: bold;}
 @keyframes pulse{50%{opacity:.35}}
 .gate.open .door.left{transform:translateX(-101%)}
 .gate.open .door.right{transform:translateX(101%)}
@@ -110,10 +115,102 @@ footer .btn.ghost:hover{background:var(--gold);color:var(--teal)}
 .gallery .ph{position:relative;aspect-ratio:var(--ar);overflow:hidden}
 .gallery .ph img{display:block;width:100%;height:100%;object-fit:cover}
 .gallery .ph::after{content:"";position:absolute;inset:0;background:rgba(255,150,190,.16)}
-.gallery figure.empty .ph{display:grid;place-items:center;background:var();color:var(--gold);font-size:.6rem;line-height:1.2;text-align:center;padding:.3rem}
-
+.gallery figure.empty .ph{display:grid;place-items:center;background:var(--teal-2);color:var(--gold);font-size:.6rem;line-height:1.2;text-align:center;padding:.3rem}
+.gallery figure.empty .ph::before{content:"Add photo: " attr(data-n)}
 
 /* Music button */
 .music-btn{position:fixed;right:1rem;bottom:1rem;z-index:40;width:3rem;height:3rem;border-radius:50%;border:2px solid var(--gold);background:var(--teal);color:var(--gold);font-size:1.4rem;line-height:1;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.3)}
 .music-btn[hidden]{display:none}
 .music-btn.off::after{content:"";position:absolute;left:20%;right:20%;top:50%;height:2px;background:var(--gold);transform:rotate(-45deg)}
+
+/* Opening: Ganesh ji seal */
+.seal{width:7.5rem;aspect-ratio:1;border-radius:50%;border:3px solid var(--gold);display:grid;place-items:center;overflow:hidden;
+  background:radial-gradient(circle,#F9D88A,var(--gold));box-shadow:0 0 0 6px rgba(242,169,59,.25),0 0 30px rgba(242,169,59,.5)}
+.seal img{width:100%;height:100%;object-fit:cover}
+.om{font-size:3.6rem;color:var(--teal);line-height:1}
+.bless{font-family:var(--serif);font-size:1.35rem;color:var(--blush)}
+.monogram{font-size:clamp(1.6rem,6vw,2.2rem)}
+
+/* Falling petals */
+.petals{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+.petals i{position:absolute;top:-30px;border-radius:0 100% 0 100%;opacity:.8;animation:fall linear infinite}
+@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(540deg)}}
+
+/* Floating menu */
+.nav{position:fixed;top:.6rem;left:50%;transform:translateX(-50%);z-index:45;display:flex;gap:.15rem;max-width:94vw;overflow-x:auto;padding:.3rem;
+  background:rgba(14,59,67,.93);backdrop-filter:blur(8px);border:1px solid var(--gold);border-radius:999px;scrollbar-width:none}
+.nav[hidden]{display:none}
+.nav a,.nav button{flex:none;color:var(--gold);font:400 .85rem var(--sans);padding:.35rem .75rem;border-radius:999px;text-decoration:none;background:none;border:0;cursor:pointer}
+.nav a:hover{background:rgba(242,169,59,.18)}
+.nav button{background:var(--gold);color:var(--teal);margin-left:.2rem}
+
+/* Arch event cards */
+.events{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.1rem}
+.acard{border-radius:90px 90px 16px 16px;padding:2.4rem .9rem 1.1rem;display:grid;justify-items:center;gap:.25rem;box-shadow:0 8px 20px rgba(14,59,67,.18);color:var(--ink)}
+.acard .ic{font-size:1.6rem}
+.acard h3{font-family:var(--serif);font-weight:600;font-size:1.6rem;line-height:1.1}
+.acard .day{font-family:var(--serif);font-size:3rem;line-height:1}
+.acard .mon{font-size:.85rem}
+.acard .pill{background:rgba(255,255,255,.65);border-radius:999px;padding:.15rem .8rem;font-size:.85rem;margin:.3rem 0}
+.acard p{font-size:.9rem}
+.mini{margin-top:.5rem;background:transparent;color:inherit;border:1.5px solid currentColor;border-radius:999px;padding:.35rem .8rem;font:400 .78rem var(--sans);cursor:pointer}
+.acard.peach{background:linear-gradient(#FFE3CF,#F7B58A)}
+.acard.yellow{background:linear-gradient(#FFF3B0,#F5C542)}
+.acard.mint{background:linear-gradient(#DDF7E8,#7FD3A6)}
+.acard.maroon{background:linear-gradient(#7A1633,#3E0A1B);color:#fff}
+.acard.maroon .day,.acard.maroon h3{color:var(--gold)}
+.acard.maroon .pill{background:rgba(255,255,255,.18)}
+
+/* Two blessing seals (Ganesh ji and Krishna) */
+.seals{display:flex;gap:.9rem}
+.seals .seal{width:5.6rem}
+.seals .om{font-size:2.5rem}
+.bless{font-size:1.15rem;line-height:1.5;text-align:center}
+
+/* Gold medallion opening */
+.open-btn{background:none;border:0;width:min(88vw,340px);aspect-ratio:auto;border-radius:0;gap:.7rem}
+.medal{position:relative;display:block;width:100%;filter:drop-shadow(0 8px 24px rgba(0,0,0,.45))}
+.medal svg{display:block;width:100%}
+.medal img{position:absolute;left:40%;top:6%;width:20%;aspect-ratio:1;border-radius:50%;object-fit:cover;border:2px solid #C9922E}
+.medal .om{position:absolute;left:0;right:0;top:6%;text-align:center;font-size:clamp(2.2rem,11vw,3.2rem);color:#B07A1C;line-height:1.1}
+.bless{font-size:1.05rem}
+
+/* Medallion image + animation */
+.medal{filter:none}
+.coin{display:block;position:relative;aspect-ratio:1;border-radius:50%;overflow:hidden}
+.medal .coin img{position:static;display:block;width:112%;max-width:none;margin:-6% 0 0 -6%;aspect-ratio:auto;border-radius:0;border:0}
+.coin::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 42%,rgba(255,255,255,.4) 50%,transparent 58%);transform:translateX(-100%)}
+.orbit{position:absolute;inset:-4%;border-radius:50%;border:2px dashed rgba(242,169,59,.75)}
+.sp{position:absolute;left:var(--x);top:var(--y);width:12px;height:12px;margin:-6px;border-radius:50%;background:radial-gradient(#fff,rgba(242,169,59,0) 70%);opacity:0}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:no-preference){
+  .medal{animation:floaty 6s ease-in-out infinite}
+  .coin{animation:pop 1.5s cubic-bezier(.2,.8,.2,1) both,glow 3.5s ease-in-out 1.5s infinite}
+  .coin::after{animation:shine 4.5s ease-in-out 1.8s infinite}
+  .orbit{animation:spin 40s linear infinite}
+  .sp{animation:twinkle 2.4s ease-in-out infinite;animation-delay:var(--d)}
+  .bless{animation:up 1.2s ease .8s both}
+  body:not(.locked) .arch{animation:up 1.4s ease both}
+}
+@keyframes pop{from{transform:scale(.55) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes glow{50%{box-shadow:0 0 38px 8px rgba(242,169,59,.55)}}
+@keyframes shine{0%,60%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+@keyframes floaty{50%{transform:translateY(-9px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1.5)}}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.medal .coin video{display:block;width:112%;max-width:none;margin:-6% 0 0 -6%;object-fit:cover;pointer-events:none}
+
+/* Two copies of the couple photo: each fills 40% of the screen, full height, behind the medallion */
+.side{position:absolute;z-index:1;top:0;bottom:0;width:40%;overflow:hidden;pointer-events:none;transition:opacity .6s}
+.side.l{left:0;-webkit-mask-image:linear-gradient(to right,#000 72%,transparent);mask-image:linear-gradient(to right,#000 72%,transparent)}
+.side.r{right:0;-webkit-mask-image:linear-gradient(to left,#000 72%,transparent);mask-image:linear-gradient(to left,#000 72%,transparent)}
+.side img{display:block;width:100%;height:100%;object-fit:cover}
+.side.l img{object-position:30% 15%}
+.side.r img{object-position:100% 15%}
+.side::after{content:"";position:absolute;inset:0;background:rgba(14,59,67,.25)}
+.gate.open .side{opacity:0}
+@media (prefers-reduced-motion:no-preference){.side img{animation:kenburns 16s ease-in-out infinite alternate}}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.15)}}
