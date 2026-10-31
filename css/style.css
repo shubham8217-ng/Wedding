@@ -109,7 +109,7 @@ footer .btn.ghost:hover{background:var(--gold);color:var(--teal)}
 /* Polaroid collage: overlapping instant-photo frames on the section background */
 .block.dark{background:var(--teal)}
 .dark h2{color:var(--gold)}
-.gallery{position:relative;aspect-ratio:9/17;max-width:420px;margin:0 auto 1.5rem}
+.gallery{position:relative;aspect-ratio:9/22;max-width:420px;margin:0 auto 1.5rem}
 .gallery figure:nth-child(6){background:var(--petal)}
 .gallery figure{position:absolute;background:#fff;padding:2% 2% 6.5%;border:1px solid rgba(194,69,107,.18);box-shadow:0 6px 14px rgba(80,30,45,.25);transform:rotate(var(--r))}
 .gallery .ph{position:relative;aspect-ratio:var(--ar);overflow:hidden}
@@ -214,3 +214,60 @@ footer .btn.ghost:hover{background:var(--gold);color:var(--teal)}
 .gate.open .side{opacity:0}
 @media (prefers-reduced-motion:no-preference){.side img{animation:kenburns 16s ease-in-out infinite alternate}}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.15)}}
+
+/* Opening button: a glowing gold pill that draws the eye */
+.hint{display:inline-block;position:relative;max-width:92%;margin-top:.6rem;padding:.85rem 1.8rem;border-radius:999px;
+  font:500 1rem var(--sans);font-style:normal;letter-spacing:.05em;line-height:1.35;text-align:center;color:var(--teal);opacity:1;
+  background:linear-gradient(110deg,#C9922E 0%,#FBE9AE 28%,var(--gold) 50%,#FBE9AE 72%,#C9922E 100%);background-size:250% 100%;
+  box-shadow:0 8px 20px rgba(0,0,0,.4),0 0 24px rgba(242,169,59,.55),inset 0 0 0 2px rgba(255,255,255,.35);transition:transform .25s ease}
+.hint::before{content:"";position:absolute;inset:-2px;border-radius:999px;border:2px solid rgba(242,169,59,.9);pointer-events:none;opacity:0}
+.hint::after{content:" ✦";font-size:.8em}
+:lang(hi) .hint{letter-spacing:0;font-size:1.05rem}
+.open-btn:hover .hint{transform:scale(1.05)}
+.open-btn:focus-visible{outline:none}
+.open-btn:focus-visible .hint{outline:3px solid #fff;outline-offset:5px}
+@media (prefers-reduced-motion:no-preference){
+  .hint{animation:sheen 3.2s linear infinite,nudge 2s ease-in-out infinite}
+  .hint::before{animation:ripple 2.2s ease-out infinite}
+}
+@keyframes sheen{to{background-position:-250% 0}}
+@keyframes nudge{50%{transform:translateY(-5px)}}
+@keyframes ripple{from{transform:scale(1);opacity:.9}to{transform:scale(1.25,1.6);opacity:0}}
+
+/* Phones (portrait): use the whole tall screen. Photos across the top, medallion and button below. */
+@media (orientation:portrait) and (max-width:700px){
+  .gate{align-items:end;padding-bottom:5vh}
+  .side{top:0;bottom:auto;height:48vh;width:50%}
+  .side.l,.side.r{-webkit-mask-image:linear-gradient(to bottom,#000 62%,transparent);mask-image:linear-gradient(to bottom,#000 62%,transparent)}
+  .side.l{left:0}.side.r{right:0}
+  .side img{object-position:50% 12%}
+  .side.l img{object-position:30% 12%}.side.r img{object-position:100% 12%}
+  .side::after{background:rgba(14,59,67,.12)}
+  .open-btn{width:min(74vw,300px)}
+  .hero-photo{width:12.5rem}
+  .arch.has-photo{padding-top:2.2rem}
+}
+
+#venueFull{white-space:pre-line;font-size:1.1rem;line-height:1.8}
+
+.acard .addr{font-size:.74rem;line-height:1.45;white-space:pre-line;opacity:.85}
+a.mini{display:inline-block;color:inherit;text-decoration:none}
+
+/* Blessing cards in the collage */
+.bcard{cursor:pointer}
+.bc{aspect-ratio:var(--ar);overflow:hidden;display:grid;align-content:center;justify-items:center;text-align:center;gap:.25rem;padding:.4rem}
+.bc b{font-family:var(--serif);font-size:.95rem;line-height:1.15}
+.bc span{font-size:.58rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+.bcard.god .bc{background:linear-gradient(#FBE9AE,#F2A93B);color:var(--teal)}
+.bcard.father .bc{background:linear-gradient(var(--teal-2),var(--teal));color:var(--gold)}
+.bcard.mother .bc{background:linear-gradient(#D9627F,#7A1633);color:#fff}
+.bcard.wish .bc{background:linear-gradient(#FFE3CF,#F7B58A);color:var(--ink)}
+.dark .note{color:var(--blush)}
+.modal{position:fixed;inset:0;z-index:70;display:grid;place-items:center;background:rgba(5,20,24,.78);padding:1.2rem}
+.modal[hidden]{display:none}
+.mbox{position:relative;max-width:420px;background:var(--paper);border:3px solid var(--gold);border-radius:18px;padding:2.2rem 1.5rem 1.8rem;text-align:center}
+.mbox h3{font-family:var(--serif);font-size:1.9rem;color:var(--rose);line-height:1.2}
+.mbox p{margin-top:.7rem;font-size:1.1rem}
+#mClose{position:absolute;top:.3rem;right:.8rem;background:none;border:0;font-size:2rem;line-height:1;color:var(--teal);cursor:pointer}
+
+.dark .sub{max-width:34ch;margin:-1rem auto 1.8rem;font-family:var(--serif);font-style:italic;font-size:1.2rem;line-height:1.5;color:var(--blush)}

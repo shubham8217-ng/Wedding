@@ -30,7 +30,7 @@
 
 <nav class="nav" id="nav" hidden>
   <a href="#countdownWrap" data-i18n="nDate"></a><a href="#story" data-i18n="nStory"></a><a href="#events" data-i18n="nEvents"></a>
-  <a href="#photos" data-i18n="nPhotos"></a><a href="#venue" data-i18n="nVenue"></a><a href="#rsvp" data-i18n="nRsvp"></a>
+  <a href="#photos" data-i18n="nPhotos"></a><a href="#venue" data-i18n="nVenue"></a>
   <button id="langBtn" type="button"></button>
 </nav>
 
@@ -68,7 +68,9 @@
 
   <section class="block dark" id="photos">
     <h2 data-i18n="hPhotos"></h2>
+    <p class="sub" data-i18n="pSub"></p>
     <div class="gallery" id="gallery"></div>
+    <p class="note" data-i18n="bNote"></p>
   </section>
 
   <section class="block" id="venue">
@@ -79,27 +81,13 @@
     <p class="note" id="dress"></p>
   </section>
 
-  <section class="block alt" id="rsvp">
-    <h2 data-i18n="hRsvp"></h2>
-    <p class="center-text" id="rsvpNote"></p>
-    <form id="rsvpForm" class="rsvp">
-      <label><span data-i18n="lName"></span><input name="name" required autocomplete="name"></label>
-      <label><span data-i18n="lGuests"></span><input name="guests" type="number" min="1" max="10" value="1" required></label>
-      <fieldset>
-        <legend data-i18n="lAtt"></legend>
-        <label class="radio"><input type="radio" name="attend" value="Joyfully accepts" checked> <span data-i18n="yes"></span></label>
-        <label class="radio"><input type="radio" name="attend" value="Regretfully declines"> <span data-i18n="no"></span></label>
-      </fieldset>
-      <label><span data-i18n="lMsg"></span><textarea name="msg" rows="3"></textarea></label>
-      <button class="btn" type="submit" data-i18n="send"></button>
-    </form>
-  </section>
-
   <footer>
     <p id="hosts"></p>
     <button class="btn ghost" id="shareBtn" data-i18n="share"></button>
   </footer>
 </main>
+
+<div class="modal" id="modal" hidden><div class="mbox"><button id="mClose" aria-label="Close">&times;</button><h3 id="mTitle"></h3><p id="mText"></p></div></div>
 
 <audio id="bgm" loop preload="none"></audio>
 <button class="music-btn" id="musicBtn" aria-label="Play or pause music" aria-pressed="false" hidden>&#9835;</button>
