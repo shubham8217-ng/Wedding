@@ -33,10 +33,10 @@ window.WEDDING = {
       addressHi: "ग्राम - अल्हदिया\nडाकघर - तेजी बाज़ार\nजनपद - जौनपुर, उत्तर प्रदेश\nपिन कोड - 222141",
       mapQ: "Alhadia, Uttar Pradesh 222141" }
   ],
-  story: [                                      // (EDIT) write your own story
-    { title: "How we met",      text: "Write a few lines about where and how your story began." },
-    { title: "The proposal",    text: "Write about the moment you both knew." },
-    { title: "Forever begins",  text: "Two families, one celebration. We can't wait to share it with you." }
+  story: [
+    { title: "How we met", text: "An arranged meeting by families, but a connection made by destiny. From strangers to soulmates in one conversation." },
+    { title: "The proposal", text: "It wasn't a question, it was a blessing. With our parents' smiles and our hearts aligned, we said yes to a lifetime together." },
+    { title: "Forever begins", text: "Two families, one love, one celebration. What started as an arranged match has become our favorite love story. We can't wait to celebrate forever with you." }
   ],
   // Ganesh ji picture for the opening seal. Put a square-ish image here; until then the seal shows ॐ.
   ganeshImage: "images/ganesh.png",
@@ -53,9 +53,9 @@ window.WEDDING = {
     dressCode: "भारतीय पारंपरिक परिधान। गहरे रंग और सुनहरी आभा।",
     hosts: "निलाम और शुभम के परिवारजन",
     story: [
-      { title: "हम कैसे मिले",     text: "यहाँ कुछ पंक्तियाँ लिखें कि आपकी कहानी कहाँ और कैसे शुरू हुई।" },
-      { title: "वह खास पल",       text: "उस पल के बारे में लिखें जब आप दोनों को पता चल गया।" },
-      { title: "नई शुरुआत",       text: "दो परिवार, एक उत्सव। आपके साथ यह खुशी बाँटने का इंतज़ार है।" }
+      { title: "हम कैसे मिले", text: "परिवारों द्वारा तय की गई एक मुलाकात, पर रिश्ता बनाया तक़दीर ने। एक ही बातचीत में अजनबी से जीवनसाथी बन गए।" },
+      { title: "वह खास पल", text: "यह कोई सवाल नहीं, एक आशीर्वाद था। माता-पिता की मुस्कान और दिलों के मेल के साथ हमने जीवन भर के साथ को हाँ कह दिया।" },
+      { title: "नई शुरुआत", text: "दो परिवार, एक प्यार, एक उत्सव। जो रिश्ता परिवारों ने तय किया था, वही अब हमारी सबसे प्यारी प्रेम कहानी बन गया है। आपके साथ यह उत्सव मनाने का इंतज़ार है।" }
     ]
   },
 
@@ -88,7 +88,7 @@ window.WEDDING = {
   ],
   // Background music: put an mp3 in the audio/ folder and keep the name below (or change it).
   // It starts when guests click the button on the opening screen. Remove the line to have no music.
-  music: "audio/music.mp3",
+  music: "audio/music.mpeg",
 
   dressCode: "Festive Indian attire. Think jewel tones and gold.",
   hosts: "The families of Nilam and Shubham"

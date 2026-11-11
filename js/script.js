@@ -4,13 +4,13 @@
 
   const UI = {
     en: { nDate:"Date", nStory:"Story", nEvents:"Events", nPhotos:"Photos", nVenue:"Venue", nRsvp:"RSVP", lang:"हिंदी",
-      tap:"Click here to view invitation", cdTitle:"Counting down to the wedding", d:"days", h:"hours", m:"minutes", s:"seconds", cal:"Add to calendar", bNote:"Tap a blessing card to read it", pSub:"More photos will be added with time, by God's grace and the blessings of our parents and well-wishers.", map:"View map",
+      tap:"Click here to view invitation", cdTitle:"Counting down to the wedding", d:"days", h:"hours", m:"minutes", s:"seconds", cal:"Add to calendar", bNote:"Tap a blessing card to read it", back:"Back", next:"Next", pSub:"More photos will be added with time, by God's grace and the blessings of our parents and well-wishers.", map:"View map",
       hStory:"Our story", hEvents:"The celebrations", hPhotos:"Moments together", hVenue:"Venue", dir:"Get directions",
       hRsvp:"Will you join us?", lName:"Your name", lGuests:"Number of guests", lAtt:"Attending?", yes:"Yes, we'll be there",
       no:"Sorry, we can't make it", lMsg:"Message for the couple (optional)", send:"Send RSVP on WhatsApp", share:"Share this invitation",
       dress:"Dress code: ", reply:d => `Please reply by ${d}.`, love:"With love, " },
     hi: { nDate:"तिथि", nStory:"कहानी", nEvents:"कार्यक्रम", nPhotos:"तस्वीरें", nVenue:"स्थान", nRsvp:"उपस्थिति", lang:"English",
-      tap:"निमंत्रण देखने के लिए यहाँ क्लिक करें", cdTitle:"विवाह में शेष समय", d:"दिन", h:"घंटे", m:"मिनट", s:"सेकंड", cal:"कैलेंडर में जोड़ें", bNote:"आशीर्वाद पढ़ने के लिए कार्ड छुएँ", pSub:"ईश्वर की कृपा और माता-पिता व शुभचिंतकों के आशीर्वाद से समय के साथ और तस्वीरें जुड़ती रहेंगी।", map:"नक्शा देखें",
+      tap:"निमंत्रण देखने के लिए यहाँ क्लिक करें", cdTitle:"विवाह में शेष समय", d:"दिन", h:"घंटे", m:"मिनट", s:"सेकंड", cal:"कैलेंडर में जोड़ें", bNote:"आशीर्वाद पढ़ने के लिए कार्ड छुएँ", back:"पीछे", next:"आगे", pSub:"ईश्वर की कृपा और माता-पिता व शुभचिंतकों के आशीर्वाद से समय के साथ और तस्वीरें जुड़ती रहेंगी।", map:"नक्शा देखें",
       hStory:"हमारी कहानी", hEvents:"उत्सव", hPhotos:"साथ बिताए पल", hVenue:"स्थान", dir:"रास्ता देखें",
       hRsvp:"क्या आप आएँगे?", lName:"आपका नाम", lGuests:"अतिथियों की संख्या", lAtt:"उपस्थित होंगे?", yes:"हाँ, हम आएँगे",
       no:"क्षमा करें, हम नहीं आ पाएँगे", lMsg:"वर-वधू के लिए संदेश (वैकल्पिक)", send:"WhatsApp पर उत्तर भेजें", share:"निमंत्रण साझा करें",
@@ -138,27 +138,59 @@
   // Background music (starts when the doors open; browsers only allow sound after a tap)
   const bgm = $("bgm"), mBtn = $("musicBtn");
   let musicOn = false;
-  if (C.music) { bgm.src = C.music; bgm.volume = 0.6; bgm.addEventListener("error", () => { mBtn.hidden = true; }); }
+  const dev = location.protocol === "file:" || /^(localhost|127\.)/.test(location.hostname);
+  const toast = msg => {
+    let t = $("toast");
+    if (!t) { t = document.createElement("div"); t.id = "toast"; t.className = "toast"; document.body.appendChild(t); }
+    t.textContent = msg; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 5000);
+  };
+  if (C.music) { bgm.src = C.music; bgm.volume = 0.6; bgm.addEventListener("error", () => { mBtn.title = "Music file not found: " + C.music; mBtn.classList.add("off"); }); }
   const setMusic = on => {
     musicOn = on; mBtn.classList.toggle("off", !on); mBtn.setAttribute("aria-pressed", String(on));
-    if (on) bgm.play().catch(() => setMusic(false)); else bgm.pause();
+    if (on) bgm.play().catch(err => {
+      setMusic(false);
+      toast(dev ? `Can't play ${C.music} (${err.name}). Check the file name inside the audio folder and use an MP3 file.` : "Music is unavailable right now.");
+    }); else bgm.pause();
   };
   mBtn.addEventListener("click", () => setMusic(!musicOn));
 
   // Open the doors
   $("openBtn").addEventListener("click", () => {
     $("gate").classList.add("open");
-    $("nav").hidden = false;
+    $("nav").hidden = false; $("pager").hidden = false;
     if (C.music) { mBtn.hidden = false; setMusic(true); }
     document.body.classList.remove("locked");
     setTimeout(() => $("gate").classList.add("gone"), 1500);
   });
 
-  // Sections fade up as you scroll
-  if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
-    document.querySelectorAll(".block, footer").forEach(el => { el.classList.add("rv"); io.observe(el); });
-  }
+  // Page-by-page navigation: Back / Next buttons, swipe, arrow keys, menu links
+  const pages = [...document.querySelectorAll("main>.page")], dots = $("dots");
+  dots.innerHTML = pages.map((_, i) => `<button class="dot" data-i="${i}" aria-label="Page ${i + 1}"></button>`).join("");
+  let cur = 0;
+  const show = i => {
+    cur = Math.max(0, Math.min(pages.length - 1, i));
+    pages.forEach((p, k) => { p.classList.toggle("active", k === cur); p.classList.toggle("prev", k < cur); if (k === cur) p.scrollTop = 0; });
+    $("prevBtn").disabled = cur === 0; $("nextBtn").disabled = cur === pages.length - 1;
+    [...dots.children].forEach((d, k) => d.classList.toggle("on", k === cur));
+    document.querySelectorAll("#nav a").forEach(a => a.classList.toggle("on", a.getAttribute("href").slice(1) === pages[cur].id));
+  };
+  show(0);
+  $("prevBtn").addEventListener("click", () => show(cur - 1));
+  $("nextBtn").addEventListener("click", () => show(cur + 1));
+  dots.addEventListener("click", e => { const d = e.target.closest(".dot"); if (d) show(+d.dataset.i); });
+  document.querySelectorAll("#nav a").forEach(a => a.addEventListener("click", e => {
+    e.preventDefault(); const k = pages.findIndex(p => p.id === a.getAttribute("href").slice(1)); if (k >= 0) show(k);
+  }));
+  document.addEventListener("keydown", e => {
+    if (!$("gate").classList.contains("gone") || !$("modal").hidden) return;
+    if (e.key === "ArrowRight") show(cur + 1); if (e.key === "ArrowLeft") show(cur - 1);
+  });
+  let sx = 0, sy = 0;
+  $("pages").addEventListener("touchstart", e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+  $("pages").addEventListener("touchend", e => {
+    const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) show(cur + (dx < 0 ? 1 : -1));
+  }, { passive: true });
 
   // Countdown
   const tick = () => {

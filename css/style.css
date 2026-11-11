@@ -271,3 +271,59 @@ a.mini{display:inline-block;color:inherit;text-decoration:none}
 #mClose{position:absolute;top:.3rem;right:.8rem;background:none;border:0;font-size:2rem;line-height:1;color:var(--teal);cursor:pointer}
 
 .dark .sub{max-width:34ch;margin:-1rem auto 1.8rem;font-family:var(--serif);font-style:italic;font-size:1.2rem;line-height:1.5;color:var(--blush)}
+
+/* Page-by-page layout (Back / Next instead of scrolling) */
+html,body{height:100%;overflow:hidden}
+main{position:fixed;inset:0;overflow:hidden}
+main>.page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:4.8rem max(1.25rem,calc((100% - 700px)/2)) 6rem;
+  display:flex;flex-direction:column;justify-content:center;justify-content:safe center;
+  transform:translateX(100%);visibility:hidden;transition:transform .55s cubic-bezier(.7,0,.2,1),visibility 0s .55s}
+main>.page.prev{transform:translateX(-100%)}
+main>.page.active{transform:none;visibility:visible;transition:transform .55s cubic-bezier(.7,0,.2,1),visibility 0s}
+main>.page>*{width:100%}
+main>.page>.btn{width:auto;align-self:center}
+main>.hero{align-items:center;padding:4.5rem 1rem 6rem}
+main>footer{align-items:center;gap:1.5rem}
+main>footer>*{width:auto}
+.nav a.on{background:rgba(242,169,59,.28)}
+.pager{position:fixed;left:50%;bottom:.8rem;transform:translateX(-50%);z-index:45;display:flex;align-items:center;gap:.5rem;padding:.35rem .5rem;
+  background:rgba(14,59,67,.93);backdrop-filter:blur(8px);border:1px solid var(--gold);border-radius:999px;max-width:78vw}
+.pager[hidden]{display:none}
+.pager>button{color:var(--gold);background:none;border:0;border-radius:999px;padding:.45rem .85rem;font:500 .9rem var(--sans);cursor:pointer}
+.pager #nextBtn{background:var(--gold);color:var(--teal)}
+.pager>button:disabled{opacity:.35;cursor:default}
+.dots{display:flex;gap:.35rem}
+.dot{width:.5rem;height:.5rem;padding:0;border:0;border-radius:50%;background:rgba(242,169,59,.35);cursor:pointer}
+.dot.on{background:var(--gold);transform:scale(1.4)}
+@media (prefers-reduced-motion:no-preference){main>.page.active>*{animation:up .7s ease .25s both}}
+@media (max-width:420px){.pager>button{padding:.45rem .6rem;font-size:.85rem}.dots{display:none}}
+
+/* Phones: fit the menu and the event cards on one screen */
+@media (max-width:600px){
+  .nav a,.nav button{padding:.35rem .5rem;font-size:.8rem}
+  #events.page{padding-top:4.2rem}
+  #events h2{margin-bottom:.9rem}
+  .events{gap:.7rem}
+  .acard{padding:1.7rem .5rem .8rem;gap:.1rem}
+  .acard .ic{font-size:1.25rem}
+  .acard h3{font-size:1.3rem}
+  .acard .day{font-size:2.2rem}
+  .acard .pill{margin:.15rem 0;font-size:.78rem}
+  .acard p{font-size:.8rem}
+  .acard .addr{font-size:.64rem;line-height:1.35}
+  .mini{margin-top:.25rem;padding:.22rem .55rem;font-size:.7rem}
+}
+@media (max-width:600px){
+  #events.page{padding-top:3.7rem;padding-bottom:4.4rem}
+  #events h2{font-size:1.6rem;margin-bottom:.5rem}
+  .acard{padding-top:1.3rem}
+  .acard .day{font-size:1.9rem}
+  .acard .ic{font-size:1.1rem}
+}
+
+/* Music button: always visible after opening, sitting above the Back / Next bar */
+.music-btn{right:1rem;bottom:4.9rem;z-index:46}
+
+.toast{position:fixed;left:50%;bottom:8.5rem;transform:translate(-50%,10px);z-index:80;max-width:88vw;padding:.7rem 1.1rem;border-radius:14px;
+  background:#7A1633;color:#fff;font:400 .9rem/1.4 var(--sans);text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+.toast.show{opacity:1;transform:translate(-50%,0)}

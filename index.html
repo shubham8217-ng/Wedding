@@ -34,8 +34,14 @@
   <button id="langBtn" type="button"></button>
 </nav>
 
-<main>
-  <section class="hero">
+<div class="pager" id="pager" hidden>
+  <button id="prevBtn" type="button">&lsaquo; <span data-i18n="back"></span></button>
+  <span class="dots" id="dots"></span>
+  <button id="nextBtn" type="button"><span data-i18n="next"></span> &rsaquo;</button>
+</div>
+
+<main id="pages">
+  <section class="page hero">
     <div class="arch">
       <div class="hero-photo" id="heroPhoto" hidden></div>
       <p class="lead" id="tagline"></p>
@@ -45,7 +51,7 @@
     </div>
   </section>
 
-  <section class="block" id="countdownWrap">
+  <section class="page block" id="countdownWrap">
     <h2 data-i18n="cdTitle"></h2>
     <div class="countdown">
       <div><b id="cd-d">0</b><small data-i18n="d"></small></div>
@@ -56,24 +62,24 @@
     <button class="btn ghost" id="calBtn" data-i18n="cal"></button>
   </section>
 
-  <section class="block alt" id="story">
+  <section class="page block alt" id="story">
     <h2 data-i18n="hStory"></h2>
     <div class="story" id="story-list"></div>
   </section>
 
-  <section class="block" id="events">
+  <section class="page block" id="events">
     <h2 data-i18n="hEvents"></h2>
     <div class="events" id="event-list"></div>
   </section>
 
-  <section class="block dark" id="photos">
+  <section class="page block dark" id="photos">
     <h2 data-i18n="hPhotos"></h2>
     <p class="sub" data-i18n="pSub"></p>
     <div class="gallery" id="gallery"></div>
     <p class="note" data-i18n="bNote"></p>
   </section>
 
-  <section class="block" id="venue">
+  <section class="page block" id="venue">
     <h2 data-i18n="hVenue"></h2>
     <p id="venueFull" class="center-text"></p>
     <div class="map"><iframe id="mapFrame" title="Venue map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
@@ -81,7 +87,7 @@
     <p class="note" id="dress"></p>
   </section>
 
-  <footer>
+  <footer class="page">
     <p id="hosts"></p>
     <button class="btn ghost" id="shareBtn" data-i18n="share"></button>
   </footer>
