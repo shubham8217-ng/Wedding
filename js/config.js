@@ -3,7 +3,7 @@
 window.WEDDING = {
   bride: "Nilam",
   groom: "Shubham",
-  tagline: "Together with their families, invite you to celebrate their wedding",
+  tagline: "With the blessings of the Almighty and our elders, we cordially invite you to grace the auspicious occasion of the wedding of Shubham & Nilam, as shared below. Your presence and blessings will make our celebration truly complete.",
   dateTime: "2026-12-02T19:00:00",            // (EDIT time) main ceremony, local time
   dateLabel: "Wednesday, 2 December 2026",
   venueShort: "Alhadiya, Jaunpur, Uttar Pradesh",
@@ -46,7 +46,7 @@ window.WEDDING = {
   // Hindi version of the text above (shown when the guest taps the language button)
   hi: {
     bride: "निलाम", groom: "शुभम",
-    tagline: "दोनों परिवार आपको सादर आमंत्रित करते हैं, इनके विवाह उत्सव में पधारें",
+    tagline: "ईश्वर और बड़ों के आशीर्वाद से, हम आपको शुभम और निलाम के विवाह के पावन अवसर पर सादर आमंत्रित करते हैं, जैसा कि नीचे दिया गया है। आपकी उपस्थिति और आशीर्वाद से हमारा उत्सव सचमुच पूर्ण होगा।",
     dateLabel: "बुधवार, 2 दिसंबर 2026",
     venueShort: "अल्हदिया, जौनपुर, उत्तर प्रदेश", venueName: "ग्राम - अल्हदिया",
     venueAddress: "डाकघर - तेजी बाज़ार\nजनपद - जौनपुर, उत्तर प्रदेश\nपिन कोड - 222141",

@@ -1,7 +1,7 @@
 :root{
   --teal:#0E3B43; --teal-2:#164E58; --gold:#F2A93B; --rose:#C2456B;
   --blush:#F6D5CF; --mint:#EAF6F3; --sand:#FFF6E4; --petal:#FDE8E4; --peach:#FFF0E6; --paper:#FFFaf4; --ink:#10282C;
-  --serif:"Cormorant Garamond","Noto Serif Devanagari",Georgia,serif; --sans:"Jost","Noto Sans Devanagari",system-ui,sans-serif;
+  --serif:"Playfair Display","Noto Serif Devanagari",Georgia,serif; --script:"Great Vibes","Noto Serif Devanagari",cursive; --sans:"Jost","Noto Sans Devanagari",system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth;scroll-padding-top:4rem}
@@ -327,3 +327,89 @@ main>footer>*{width:auto}
 .toast{position:fixed;left:50%;bottom:8.5rem;transform:translate(-50%,10px);z-index:80;max-width:88vw;padding:.7rem 1.1rem;border-radius:14px;
   background:#7A1633;color:#fff;font:400 .9rem/1.4 var(--sans);text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* Phones: ONE couple photo across the top (groom on one side, bride on the other), medallion and button below */
+@media (orientation:portrait) and (max-width:700px){
+  .side.l{left:0;width:100%;height:62vh}
+  .side.r{display:none}
+  .side.l img{object-position:50% 10%}
+  .open-btn{width:min(70vw,280px)}
+}
+
+/* Phones: keep the whole first page (photo, names, date, place) above the Back / Next bar */
+@media (max-width:700px){
+  main>.hero{padding:4.2rem .8rem 5rem}
+  .hero-photo{width:min(11rem,22vh)}
+  .arch.has-photo{padding:1.6rem 1.2rem 2rem}
+  .lead{margin-bottom:.8rem;font-size:.9rem}
+  h1{font-size:min(13vw,7.5vh)}
+  .date{margin-top:1rem;font-size:1.25rem}
+  .venue{font-size:.95rem}
+}
+@media (orientation:portrait) and (max-width:700px){
+  .door.left{border-right:0}.door.right{border-left:0}
+}
+
+/* Logo (medallion) exactly at the centre of the screen; the button hangs below it */
+.hint{position:absolute;top:calc(100% + .9rem);left:0;right:0;margin-inline:auto;width:fit-content}
+@media (orientation:portrait) and (max-width:700px){
+  .gate{align-items:center;padding-bottom:0}
+}
+@media (orientation:portrait) and (max-width:700px){.open-btn{width:min(70vw,280px,34vh)}}
+
+/* Gold thread tied around the logo, like an envelope closed with string */
+.thread{position:absolute;z-index:1;pointer-events:none;transition:opacity .5s ease,transform .6s ease;
+  background:repeating-linear-gradient(45deg,#8C5E16 0 2px,#FBE9AE 2px 4px,#D9A441 4px 6px);background-size:8px 8px;
+  box-shadow:0 0 7px rgba(242,169,59,.65),1px 2px 3px rgba(0,0,0,.45)}
+.thread.v{left:50%;top:0;bottom:0;width:5px;margin-left:-2.5px}
+.thread.h{top:50%;left:0;right:0;height:5px;margin-top:-2.5px}
+.gate.open .thread{opacity:0}
+.gate.open .thread.v{transform:scaleY(.3)}
+.gate.open .thread.h{transform:scaleX(.3)}
+
+/* Slightly larger logo; button moved further down */
+.open-btn{width:min(88vw,360px)}
+.hint{top:calc(100% + 2.6rem)}
+@media (orientation:portrait) and (max-width:700px){.open-btn{width:min(74vw,300px,36vh)}}
+
+/* Thread as a thin gold strip (vertical only) */
+.thread.v{width:2px;margin-left:-1px;background:linear-gradient(90deg,#8C5E16,#FBE9AE 50%,#D9A441);background-size:auto;
+  box-shadow:0 0 4px rgba(242,169,59,.6),1px 0 2px rgba(0,0,0,.35)}
+
+/* Long invitation message + small side gaps on every page (phones) */
+.lead{max-width:40ch}
+@media (max-width:700px){
+  main>.page{padding-left:1.6rem;padding-right:1.6rem}
+  main>.hero{padding-left:1.2rem;padding-right:1.2rem}
+  .arch{width:min(86vw,520px)}
+  .arch.has-photo{padding:1.4rem 1rem 1.6rem}
+  .lead{font-size:clamp(.74rem,1.9vh,.9rem);line-height:1.5;margin-bottom:.7rem}
+  .hero-photo{width:min(11rem,19vh);margin-bottom:1rem}
+  h1{font-size:min(12vw,6.8vh)}
+  .date{margin-top:.8rem;font-size:1.15rem}
+}
+main>.hero>.arch{max-width:520px}
+@media (max-width:700px){main>.hero{padding-left:1.8rem;padding-right:1.8rem}}
+
+/* Events: always two cards side by side on phones */
+@media (max-width:700px){.events{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Taller first-page frame: fills the space between the top menu and the Back / Next bar */
+main>.hero>.arch{min-height:calc(100vh - 9.4rem);min-height:calc(100dvh - 9.4rem);display:flex;flex-direction:column;justify-content:center}
+
+/* Stylish fonts: script for names and headings, Playfair Display for details */
+body{font-variant-numeric:lining-nums}
+h1{font-family:var(--script);font-style:normal;font-weight:400;font-size:clamp(3.4rem,10vw,6rem)}
+h2{font-family:var(--script);font-weight:400;font-size:clamp(2.3rem,9vw,3.2rem);line-height:1.15}
+:lang(hi) h1,:lang(hi) h2{font-family:"Noto Serif Devanagari",serif;font-weight:600}
+@media (max-width:700px){
+  h1{font-size:min(15vw,8.2vh)}
+  :lang(hi) h1{font-size:min(11.5vw,6.5vh)}
+  #events h2{font-size:2rem;margin-bottom:.4rem}
+}
+
+/* Even thinner vertical strip */
+.thread.v{width:1px;margin-left:-.5px;box-shadow:0 0 3px rgba(242,169,59,.6)}
+
+/* Strip starts at the logo's centre: nothing above the logo, unchanged below it */
+.thread.v{top:50%}
